@@ -9,7 +9,7 @@ class SzCs implements BuildXML{
 
   @override
   String build() {
-    final builder = XMLBuilder(XmlBuilder());
+    final builder = XMLBuilder();
     builder.szCs(val.toString());
     return builder.build();
   }

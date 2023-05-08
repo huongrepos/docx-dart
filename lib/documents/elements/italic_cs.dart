@@ -12,7 +12,7 @@ class ItalicCs implements BuildXML{
   }
   @override
   String build() {
-    final builder = XMLBuilder(XmlBuilder());
+    final builder = XMLBuilder();
     builder.iCs(val.toString());
     return builder.build();
   }

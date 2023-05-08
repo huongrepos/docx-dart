@@ -9,12 +9,12 @@ class CharacterSpacing implements BuildXML{
 
   @override
   String build() {
-    final builder = XMLBuilder(XmlBuilder());
+    final builder = XMLBuilder();
     builder.spacing(val);
     return builder.build();
   }
 }
-// void main() {
-//   final builder = Sz(1);
-//   print(builder.build());
-// }
+void main() {
+  final builder = CharacterSpacing(1);
+  print(builder.build());
+}

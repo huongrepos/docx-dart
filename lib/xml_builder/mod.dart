@@ -1,35 +1,39 @@
 export 'comments.dart';
 export 'comments_extended.dart';
 export 'elements.dart';
-
 import 'package:xml/xml.dart';
-
+import 'package:xml/xml_events.dart';
 
 class XMLBuilder {
-  late  XmlBuilder builder;
-
-  XMLBuilder(this.builder);
+  late final List<String> writer = <String>[];
+  late final List<String> stack = <String>[];
 
   XMLBuilder openTypes(String uri) {
+    XmlBuilder builder = XmlBuilder();
     builder.element('Types', nest: () {
       builder.attribute('xmlns', uri);
     });
+    writer.add(builder.buildDocument().toXmlString());
     return this;
   }
 
   XMLBuilder addOverride(String name, String contentType) {
+    XmlBuilder builder = XmlBuilder();
     builder.element('Override', nest: () {
       builder.attribute('PartName', name);
       builder.attribute('ContentType', contentType);
     });
+    writer.add(builder.buildDocument().toXmlString());
     return close();
   }
 
   XMLBuilder addDefault(String name, String extension) {
+    XmlBuilder builder = XmlBuilder();
     builder.element('Default', nest: () {
       builder.attribute('ContentType', extension);
       builder.attribute('Extension', name);
     });
+    writer.add(builder.buildDocument().toXmlString());
     return close();
   }
 
@@ -61,16 +65,14 @@ class XMLBuilder {
   // }
   //
   XMLBuilder close() {
-    // builder.pop();
+    if(stack.isNotEmpty){
+     String id = stack.last;
+     writer.add(XmlEndElementEvent(id).toString());
+     stack.removeLast();
+    }
     return this;
   }
-  //
-  // XMLBuilder plainText(String t) {
-  //   builder.text(t);
-  //   return this;
-  // }
-  //
   String build() {
-    return builder.buildDocument().toXmlString(pretty: true);
+    return writer.join();
   }
 }

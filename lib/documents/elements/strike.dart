@@ -12,7 +12,7 @@ class Strike implements BuildXML{
   }
   @override
   String build() {
-    final builder = XMLBuilder(XmlBuilder());
+    final builder = XMLBuilder();
     builder.strike(val.toString());
     return builder.build();
   }

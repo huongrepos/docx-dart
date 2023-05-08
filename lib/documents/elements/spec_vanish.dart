@@ -7,7 +7,7 @@ class SpecVanish implements BuildXML{
   SpecVanish();
   @override
   String build() {
-    final builder = XMLBuilder(XmlBuilder());
+    final builder = XMLBuilder();
     builder.specVanish();
     return builder.build();
   }

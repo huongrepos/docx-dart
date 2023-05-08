@@ -10,7 +10,7 @@ class VertAlign implements BuildXML{
 
   @override
   String build() {
-    final builder = XMLBuilder(XmlBuilder());
+    final builder = XMLBuilder();
     builder.vertAlign(val.name);
     return builder.build();
   }

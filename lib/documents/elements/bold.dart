@@ -12,7 +12,7 @@ class Bold implements BuildXML{
   }
   @override
   String build() {
-    final builder = XMLBuilder(XmlBuilder());
+    final builder = XMLBuilder();
     builder.b(val.toString());
     return builder.build();
   }

@@ -1,6 +1,10 @@
+
+import 'package:xml/xml.dart';
+
 import 'mod.dart';
 extension Comments on XMLBuilder {
   XMLBuilder openComments() {
+    XmlBuilder builder = XmlBuilder();
     builder.element('w:comments', nest: () {
       builder.attribute('xmlns:o', 'urn:schemas-microsoft-com:office:office');
       builder.attribute('xmlns:r',
@@ -23,6 +27,7 @@ extension Comments on XMLBuilder {
           'xmlns:w14', 'http://schemas.microsoft.com/office/word/2010/wordml');
       builder.attribute('mc:Ignorable', 'w14 wp14');
     });
+    writer.add(builder.buildDocument().toXmlString());
     return this;
   }
 }

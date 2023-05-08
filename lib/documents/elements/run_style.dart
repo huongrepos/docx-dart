@@ -1,5 +1,4 @@
 
-import 'package:xml/xml.dart';
 
 import '../../xml_builder/mod.dart';
 import '../build_xml.dart';
@@ -11,7 +10,7 @@ class RunStyle implements BuildXML{
 
   @override
   String build() {
-    final builder = XMLBuilder(XmlBuilder());
+    final builder = XMLBuilder();
     builder.sz(val??='Normal');
     return builder.build();
   }

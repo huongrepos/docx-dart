@@ -152,7 +152,7 @@ class RunFonts implements BuildXML{
   }
   @override
   String build() {
-    final builder = XMLBuilder(XmlBuilder());
+    final builder = XMLBuilder();
     builder.runFonts(ascii, hiAnsi, cs, eastAsia, asciiTheme, hiAnsiTheme, csTheme, eastAsiaTheme, hint);
     return builder.build();
   }

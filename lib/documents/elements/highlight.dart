@@ -9,7 +9,7 @@ class Highlight implements BuildXML{
 
   @override
   String build() {
-    final builder = XMLBuilder(XmlBuilder());
+    final builder = XMLBuilder();
     builder.highlight(val);
     return builder.build();
   }

@@ -54,7 +54,7 @@ class TextBorder implements BuildXML{
   }
   @override
   String build() {
-    final builder = XMLBuilder(XmlBuilder());
+    final builder = XMLBuilder();
     builder.textBorder(borderType.name, size, color, space);
     return builder.build();
   }

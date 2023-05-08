@@ -9,7 +9,7 @@ class Underline implements BuildXML{
 
   @override
   String build() {
-    final builder = XMLBuilder(XmlBuilder());
+    final builder = XMLBuilder();
     builder.underline(val);
     return builder.build();
   }

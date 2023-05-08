@@ -1,11 +1,13 @@
+import 'package:xml/xml.dart';
+
 import 'mod.dart';
 
 extension CommentsExtented on XMLBuilder {
 
   XMLBuilder openCommentsExtended() {
-        builder.element('w15:commentsEx', nest: () {
-
-    builder.attribute('xmlns:wpc',
+      XmlBuilder builder = XmlBuilder();
+      builder.element('w15:commentsEx', nest: () {
+        builder.attribute('xmlns:wpc',
         'http://schemas.microsoft.com/office/word/2010/wordprocessingCanvas');
         builder.attribute(
         'xmlns:cx', 'http://schemas.microsoft.com/office/drawing/2014/chartex');
@@ -64,6 +66,7 @@ extension CommentsExtented on XMLBuilder {
         'xmlns:wne', 'http://schemas.microsoft.com/office/word/2006/wordml');
         builder.attribute('xmlns:wps', 'http://schemas.microsoft.com/office/word/2010');
         });
-        return this;
+      writer.add(builder.buildDocument().toXmlString());
+      return this;
   }
 }

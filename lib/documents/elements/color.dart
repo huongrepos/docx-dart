@@ -9,7 +9,7 @@ class Color implements BuildXML{
 
   @override
   String build() {
-    final builder = XMLBuilder(XmlBuilder());
+    final builder = XMLBuilder();
     builder.color(val);
     return builder.build();
   }

@@ -9,7 +9,7 @@ class Sz implements BuildXML{
 
   @override
   String build() {
-    final builder = XMLBuilder(XmlBuilder());
+    final builder = XMLBuilder();
     builder.sz(val.toString());
     return builder.build();
   }

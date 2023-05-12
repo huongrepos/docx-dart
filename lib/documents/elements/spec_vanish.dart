@@ -1,4 +1,3 @@
-import 'package:xml/xml.dart';
 
 import '../../xml_builder/mod.dart';
 import '../build_xml.dart';
@@ -7,9 +6,7 @@ class SpecVanish implements BuildXML{
   SpecVanish();
   @override
   String build() {
-    final builder = XMLBuilder();
-    builder.specVanish();
-    return builder.build();
+    return XMLBuilder().specVanish().build();
   }
 }
 // void main() {

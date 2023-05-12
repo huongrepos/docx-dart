@@ -4,7 +4,7 @@ import 'mod.dart';
 
 extension Declaration on XMLBuilder {
 
-  XMLBuilder declaration(bool? standalone) {
+  XMLBuilder declaration([bool? standalone]) {
     XmlBuilder builder = XmlBuilder();
     builder.processing('xml', 'version="1.0"');
     // if (standalone != null) {

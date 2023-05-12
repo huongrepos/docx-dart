@@ -1,0 +1,3 @@
+class SectionProperty{
+  //TODO
+}

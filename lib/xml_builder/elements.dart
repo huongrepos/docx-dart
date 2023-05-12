@@ -21,7 +21,8 @@ extension Elements on XMLBuilder {
   XMLBuilder text(String text, bool preserveSpace) {
     XmlBuilder builder = XmlBuilder();
     final space = preserveSpace ? "preserve" : "default";
-    builder.element('a:picLocks', nest: () {
+    builder.element('w:t', nest: () {
+      builder.text(text);
       builder.attribute('xml:space', space);
     });
     writer.add(builder.buildDocument().toXmlString());
@@ -75,6 +76,7 @@ extension Elements on XMLBuilder {
     XmlBuilder builder = XmlBuilder();
     final space = preserveSpace ? "preserve" : "default";
     builder.element('w:delText', nest: () {
+      builder.text(text);
       builder.attribute('xml:space', space);
     });
     writer.add(builder.buildDocument().toXmlString());
@@ -147,20 +149,6 @@ extension Elements on XMLBuilder {
     writer.add(builder.buildDocument().toXmlString());
     return this;
   }
-  XMLBuilder openParagraph(String paraId) {
-    XmlBuilder builder = XmlBuilder();
-    builder.element('w:p', nest: () {
-      builder.attribute('w14:paraId', paraId);
-    });
-    writer.add(builder.buildDocument().toXmlString());
-    return this;
-  }
-  XMLBuilder openParagraphProperty() {
-    XmlBuilder builder = XmlBuilder();
-    builder.element('w:pPr');
-    writer.add(builder.buildDocument().toXmlString());
-    return this;
-  }
   XMLBuilder openDocDefaults() {
     XmlBuilder builder = XmlBuilder();
     builder.element('w:docDefaults');
@@ -191,9 +179,11 @@ extension Elements on XMLBuilder {
     writer.add(builder.buildDocument().toXmlString());
     return this;
   }
-  XMLBuilder outlineLvl() {
+  XMLBuilder outlineLvl(int val) {
     XmlBuilder builder = XmlBuilder();
-    builder.element('w:outlineLvl');
+    builder.element('w:outlineLvl', nest: () {
+      builder.attribute('w:val', val);
+    });
     writer.add(builder.buildDocument().toXmlString());
     return this;
   }
@@ -203,9 +193,11 @@ extension Elements on XMLBuilder {
     writer.add(builder.buildDocument().toXmlString());
     return this;
   }
-  XMLBuilder justification() {
+  XMLBuilder justification(String val) {
     XmlBuilder builder = XmlBuilder();
-    builder.element('w:jc');
+    builder.element('w:jc', nest: () {
+      builder.attribute('w:val', val);
+    });
     writer.add(builder.buildDocument().toXmlString());
     return this;
   }
@@ -217,9 +209,11 @@ extension Elements on XMLBuilder {
     writer.add(builder.buildDocument().toXmlString());
     return this;
   }
-  XMLBuilder paragraphStyle() {
+  XMLBuilder paragraphStyle(String val) {
     XmlBuilder builder = XmlBuilder();
-    builder.element('w:pStyle');
+    builder.element('w:pStyle', nest: () {
+      builder.attribute('w:val', val);
+    });
     writer.add(builder.buildDocument().toXmlString());
     return this;
   }
@@ -247,7 +241,7 @@ extension Elements on XMLBuilder {
     writer.add(builder.buildDocument().toXmlString());
     return this;
   }
-  XMLBuilder fieldCharacter(String fldCharType, String dirty) {
+  XMLBuilder fieldCharacter(String fldCharType, bool dirty) {
     XmlBuilder builder = XmlBuilder();
     builder.element('w:fldChar', nest: () {
       builder.attribute('w:fldCharType', fldCharType);
@@ -367,35 +361,10 @@ extension Elements on XMLBuilder {
   XMLBuilder suffix() {
     XmlBuilder builder = XmlBuilder();
     builder.element('w:suff');
+    writer.add(builder.buildDocument().toXmlString());
     return this;
   }
-  // XMLBuilder indent(
-  //     int? start,
-  //     SpecialIndentType? specialIndent,
-  //     int end,
-  //     int? startChars,
-  //     ) {
-  //   var startValue = start?.toString() ?? '0';
-  //   var startCharsValue = startChars?.toString() ?? '0';
-  //   builder.element('w:ind', nest: () {
-  //     builder.attribute('w:left', startValue);
-  //     builder.attribute('w:right', end);
-  //     if (startChars != null) {
-  //       builder.attribute('w:leftChars', startCharsValue);
-  //     }
-  //     if (specialIndent != null) {
-  //       switch (specialIndent) {
-  //         case SpecialIndentType.FirstLine:
-  //           builder.attribute('w:firstLine', specialIndent.value.toString());
-  //           break;
-  //         case SpecialIndentType.Hanging:
-  //           builder.attribute('w:hanging', specialIndent.value.toString());
-  //           break;
-  //       }
-  //     }
-  //   });
-  //   return this;
-  // }
+
   XMLBuilder spacing(int s) {
     XmlBuilder builder = XmlBuilder();
     builder.element('w:spacing', nest: () {
@@ -430,17 +399,8 @@ extension Elements on XMLBuilder {
         builder.attribute('w:line', line.toString());
       }
       if (spacingType != null) {
-        switch (spacingType) {
-          case LineSpacingType.auto:
-            builder.attribute('w:lineRule', 'auto');
-            break;
-          case LineSpacingType.atLeast:
-            builder.attribute('w:lineRule', 'atLeast');
-            break;
-          case LineSpacingType.exact:
-            builder.attribute('w:lineRule', 'exact');
-            break;
-        }
+        builder.attribute('w:lineRule', spacingType.name);
+
       }
     });
     writer.add(builder.buildDocument().toXmlString());
@@ -707,6 +667,155 @@ extension Elements on XMLBuilder {
     XmlBuilder builder = XmlBuilder();
     builder.element('w:commentReference', nest: () {
       builder.attribute('w:id', id);
+    });
+    writer.add(builder.buildDocument().toXmlString());
+    return this;
+  }
+
+  //
+  XMLBuilder tab(
+      TabValueType? val,
+      TabLeaderType? leader,
+      int? pos,) {
+    String vString = val?.name ?? '';
+    String leaderString = leader?.name ?? '';
+    String posString = pos?.toString() ?? '';
+    XmlBuilder builder = XmlBuilder();
+    builder.element('w:jc', nest: () {
+      if (val != null) {
+        builder.attribute('w:val', vString);
+      }
+      if (leader != null) {
+        builder.attribute('w:leader', leaderString);
+      }
+      if (pos != null) {
+        builder.attribute('w:pos', posString);
+      }
+    });
+    writer.add(builder.buildDocument().toXmlString());
+    return this;
+  }
+  //
+  XMLBuilder numId(int val) {
+    XmlBuilder builder = XmlBuilder();
+    builder.element('w:numId', nest: () {
+      builder.attribute('w:val', val);
+    });
+    writer.add(builder.buildDocument().toXmlString());
+    return this;
+  }
+  XMLBuilder indentLevel(int val) {
+    XmlBuilder builder = XmlBuilder();
+    builder.element('w:ilvl', nest: () {
+      builder.attribute('w:val', val);
+    });
+    writer.add(builder.buildDocument().toXmlString());
+    return this;
+  }
+
+  XMLBuilder openNumberingProperty() {
+    // List<XmlEventAttribute> listAttr = <XmlEventAttribute>[XmlEventAttribute("val", "okvalue", XmlAttributeType.SINGLE_QUOTE)];
+    List<XmlEventAttribute> listAttr = [];
+    stack.add('w:numPr');
+    writer.add(XmlStartElementEvent("w:numPr", listAttr, false).toString());
+    return this;
+  }
+  XMLBuilder indent(
+      int? start,
+      SpecialIndentType? specialIndent,
+      int? end,
+      int? startChars,
+      ) {
+    XmlBuilder builder = XmlBuilder();
+    final startStr = start?.toString() ?? '0';
+    final endStr = end?.toString() ?? '0';
+    final startCharsStr = startChars?.toString() ?? '0';
+
+    builder.element(
+      'w:ind',
+      nest: () {
+        builder.attribute('w:left', startStr);
+        builder.attribute('w:right', endStr);
+
+        if (startChars != null) {
+          builder.attribute('w:leftChars', startCharsStr);
+        }
+
+        switch (specialIndent) {
+          case SpecialIndentType.firstLine:
+            builder.attribute('w:firstLine', specialIndent?.name);
+            break;
+          case SpecialIndentType.hanging:
+            builder.attribute('w:hanging', specialIndent?.name);
+            break;
+          default:
+            break;
+        }
+      },
+    );
+    writer.add(builder.buildDocument().toXmlString());
+    return this;
+  }
+  XMLBuilder openParagraphProperty() {
+    // List<XmlEventAttribute> listAttr = <XmlEventAttribute>[XmlEventAttribute("val", "okvalue", XmlAttributeType.SINGLE_QUOTE)];
+    List<XmlEventAttribute> listAttr = [];
+    stack.add('w:pPr');
+    writer.add(XmlStartElementEvent("w:pPr", listAttr, false).toString());
+    return this;
+  }
+  XMLBuilder keepNext() {
+    XmlBuilder builder = XmlBuilder();
+    builder.element('w:keepNext');
+    writer.add(builder.buildDocument().toXmlString());
+    return this;
+  }
+  XMLBuilder keepLines() {
+    XmlBuilder builder = XmlBuilder();
+    builder.element('w:keepLines');
+    writer.add(builder.buildDocument().toXmlString());
+    return this;
+  }
+  XMLBuilder pageBreakBefore() {
+    XmlBuilder builder = XmlBuilder();
+    builder.element('w:pageBreakBefore');
+    writer.add(builder.buildDocument().toXmlString());
+    return this;
+  }
+  XMLBuilder widowControl() {
+    XmlBuilder builder = XmlBuilder();
+    builder.element('w:widowControl');
+    writer.add(builder.buildDocument().toXmlString());
+    return this;
+  }
+  XMLBuilder openTabs() {
+    // List<XmlEventAttribute> listAttr = <XmlEventAttribute>[XmlEventAttribute("val", "okvalue", XmlAttributeType.SINGLE_QUOTE)];
+    List<XmlEventAttribute> listAttr = [];
+    stack.add('w:tabs');
+    writer.add(XmlStartElementEvent("w:tabs", listAttr, false).toString());
+    return this;
+  }
+  XMLBuilder openParagraphPropertyChange(String id, String author, String date) {
+    List<XmlEventAttribute> listAttr = <XmlEventAttribute>[
+      XmlEventAttribute("w:id", id, XmlAttributeType.DOUBLE_QUOTE),
+      XmlEventAttribute("w:author", author, XmlAttributeType.DOUBLE_QUOTE),
+      XmlEventAttribute("w:date", date, XmlAttributeType.DOUBLE_QUOTE),
+    ];
+    stack.add('w:pPrChange');
+    writer.add(XmlStartElementEvent("w:pPrChange", listAttr, false).toString());
+    return this;
+  }
+  XMLBuilder openParagraph(String paraId) {
+    List<XmlEventAttribute> listAttr = <XmlEventAttribute>[
+      XmlEventAttribute("w14:paraId", paraId, XmlAttributeType.DOUBLE_QUOTE),
+    ];
+    stack.add('w:p');
+    writer.add(XmlStartElementEvent("w:p", listAttr, false).toString());
+    return this;
+  }
+  XMLBuilder br(String type) {
+    XmlBuilder builder = XmlBuilder();
+    builder.element('w:br', nest: () {
+      builder.attribute('w:type', type);
     });
     writer.add(builder.buildDocument().toXmlString());
     return this;

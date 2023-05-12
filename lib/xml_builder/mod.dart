@@ -4,16 +4,17 @@ export 'elements.dart';
 import 'package:xml/xml.dart';
 import 'package:xml/xml_events.dart';
 
+import '../documents/build_xml.dart';
+
 class XMLBuilder {
   late final List<String> writer = <String>[];
   late final List<String> stack = <String>[];
 
   XMLBuilder openTypes(String uri) {
-    XmlBuilder builder = XmlBuilder();
-    builder.element('Types', nest: () {
-      builder.attribute('xmlns', uri);
-    });
-    writer.add(builder.buildDocument().toXmlString());
+    List<XmlEventAttribute> listAttr = <XmlEventAttribute>[XmlEventAttribute("xmlns", uri, XmlAttributeType.SINGLE_QUOTE)];
+    // List<XmlEventAttribute> listAttr = [];
+    stack.add('Types');
+    writer.add(XmlStartElementEvent("Types", listAttr, false).toString());
     return this;
   }
 
@@ -37,12 +38,10 @@ class XMLBuilder {
     return close();
   }
 
-  // XMLBuilder addChild<T extends BuildXML>(T child) {
-  //   builder.element(child.runtimeType.toString(), nest: () {
-  //     builder.write(child.build());
-  //   });
-  //   return this;
-  // }
+  XMLBuilder addChild<T extends BuildXML>(T child) {
+    writer.add(child.build());
+    return this;
+  }
   //
   // XMLBuilder addBytes(List<int> child) {
   //   var text = String.fromCharCodes(child);
@@ -50,20 +49,18 @@ class XMLBuilder {
   //   return this;
   // }
   //
-  // XMLBuilder addOptionalChild<T extends BuildXML>(T? child) {
-  //   if (child != null) {
-  //     addChild(child);
-  //   }
-  //   return this;
-  // }
-  //
-  // XMLBuilder addChildren<T extends BuildXML>(List<T> children) {
-  //   for (var c in children) {
-  //     addChild(c);
-  //   }
-  //   return this;
-  // }
-  //
+  XMLBuilder addOptionalChild<T extends BuildXML>(T? child) {
+    if (child != null) {
+      addChild(child);
+    }
+    return this;
+  }
+  XMLBuilder addChildren<T extends BuildXML>(List<T> children) {
+    for (var c in children) {
+      addChild(c);
+    }
+    return this;
+  }
   XMLBuilder close() {
     if(stack.isNotEmpty){
      String id = stack.last;

@@ -5,7 +5,7 @@ class Delete {
   String date;
   List<DeleteChild> children;
 
-  Delete({required this.author, required this.date, required this.children});
+  Delete({this.author = 'unnamed', this.date = '1970-01-01T00:00:00Z', this.children = const []});
 }
 
 enum DeleteChildType { run, commentStart, commentEnd }
@@ -24,7 +24,5 @@ class DeleteChild {
   DeleteChild.commentEnd(this.commentEnd)
       : type = DeleteChildType.commentEnd;
 }
-
-class Run {}
 
 class CommentRangeStart {}

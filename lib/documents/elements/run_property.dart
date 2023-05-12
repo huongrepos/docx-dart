@@ -1,6 +1,9 @@
 import '../../types/mod.dart';
 import 'mod.dart';
-class RunProperty {
+import '../../xml_builder/mod.dart';
+import '../build_xml.dart';
+
+class RunProperty implements BuildXML{
   RunStyle? style;
   Sz? sz;
   SzCs? szCs;
@@ -139,4 +142,32 @@ class RunProperty {
     ins = i;
     return this;
   }
+  @override
+  String build() {
+    return XMLBuilder().openRunProperty()
+        .addOptionalChild(sz)
+        .addOptionalChild(szCs)
+        .addOptionalChild(color)
+        .addOptionalChild(bold)
+        .addOptionalChild(boldCs)
+        .addOptionalChild(italic)
+        .addOptionalChild(italicCs)
+        .addOptionalChild(strike)
+        .addOptionalChild(highlight)
+        .addOptionalChild(underline)
+        .addOptionalChild(vanish)
+        .addOptionalChild(specVanish)
+        .addOptionalChild(fonts)
+        .addOptionalChild(textBorder)
+        // .addOptionalChild(ins)
+        // .addOptionalChild(del)
+        .addOptionalChild(vertAlign)
+        .addOptionalChild(characterSpacing)
+        .addOptionalChild(style)
+        .close().build();
+  }
 }
+// void main() {
+//   final builder = RunProperty().withSize(10).withColor("color");
+//   print(builder.build());
+// }

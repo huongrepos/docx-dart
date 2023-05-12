@@ -1,4 +1,3 @@
-import 'package:xml/xml.dart';
 
 import '../../xml_builder/mod.dart';
 import '../build_xml.dart';
@@ -12,9 +11,7 @@ class Bold implements BuildXML{
   }
   @override
   String build() {
-    final builder = XMLBuilder();
-    builder.b(val.toString());
-    return builder.build();
+    return XMLBuilder().b(val.toString()).build();
   }
 }
 // void main() {

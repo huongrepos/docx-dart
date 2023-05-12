@@ -14,7 +14,7 @@ class CharacterSpacing implements BuildXML{
     return builder.build();
   }
 }
-void main() {
-  final builder = CharacterSpacing(1);
-  print(builder.build());
-}
+// void main() {
+//   final builder = CharacterSpacing(1);
+//   print(builder.build());
+// }

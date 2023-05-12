@@ -1,18 +1,13 @@
-
-
 import '../../xml_builder/mod.dart';
 import '../build_xml.dart';
 
 class RunStyle implements BuildXML{
-  String val;
+  late String val;
 
-  RunStyle(this.val);
-
+  RunStyle([this.val = 'Normal']);
   @override
   String build() {
-    final builder = XMLBuilder();
-    builder.sz(val??='Normal');
-    return builder.build();
+    return XMLBuilder().sz(val).build();
   }
 }
 // void main() {

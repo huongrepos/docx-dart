@@ -33,7 +33,7 @@ class Style implements BuildXML{
         name: Name(""),
         runProperty: RunProperty(),
         paragraphProperty: ParagraphProperty.newParagraphProperty(),
-        tableProperty: TableProperty(),
+        tableProperty: TableProperty.defaultSettings(),
         tableCellProperty: TableCellProperty(),
         basedOn: basedOn,
         next: next,

@@ -1,5 +1,4 @@
 import 'package:docx_dart/types/mod.dart';
-import 'package:xml/xml.dart';
 
 import '../../xml_builder/mod.dart';
 import '../build_xml.dart';

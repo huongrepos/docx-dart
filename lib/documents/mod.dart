@@ -3,6 +3,8 @@ import 'package:docx_dart/documents/rels.dart';
 import 'package:tuple/tuple.dart';
 
 import 'content_types.dart';
+import 'document_rels.dart';
+import 'elements/style.dart';
 
 class Docx {
   ContentTypes contentTypes;

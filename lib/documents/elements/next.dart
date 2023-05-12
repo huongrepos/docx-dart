@@ -1,15 +1,13 @@
-import 'package:xml/xml.dart';
-
 import '../../xml_builder/mod.dart';
 import '../build_xml.dart';
-class Highlight implements BuildXML{
+class Next implements BuildXML{
   final String val;
 
-  Highlight(this.val);
+  Next(this.val);
 
   @override
   String build() {
-    return XMLBuilder().highlight(val).build();
+    return XMLBuilder().next(val).build();
   }
 }
 // void main() {

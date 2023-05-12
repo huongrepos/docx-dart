@@ -27,20 +27,3 @@ class TableCell {
 
   TableCell({required this.paragraphs});
 }
-
-enum TableProperty {
-  none,
-  firstRow,
-  lastRow,
-  firstColumn,
-  lastColumn,
-  oddRowBanding,
-  evenRowBanding,
-  oddColumnBanding,
-  evenColumnBanding,
-  topLeftCell,
-  topRightCell,
-  bottomLeftCell,
-  bottomRightCell,
-  noWrap,
-}

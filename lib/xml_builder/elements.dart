@@ -12,9 +12,11 @@ extension Elements on XMLBuilder {
     writer.add(builder.buildDocument().toXmlString());
     return this;
   }
-  XMLBuilder basedOn() {
+  XMLBuilder basedOn(String val) {
     XmlBuilder builder = XmlBuilder();
-    builder.element('w:basedOn');
+    builder.element('w:basedOn', nest: () {
+      builder.attribute('w:val', val);
+    });
     writer.add(builder.buildDocument().toXmlString());
     return this;
   }
@@ -187,9 +189,11 @@ extension Elements on XMLBuilder {
     writer.add(builder.buildDocument().toXmlString());
     return this;
   }
-  XMLBuilder name() {
+  XMLBuilder name(String val) {
     XmlBuilder builder = XmlBuilder();
-    builder.element('w:name');
+    builder.element('w:name', nest: () {
+      builder.attribute('w:val', val);
+    });
     writer.add(builder.buildDocument().toXmlString());
     return this;
   }
@@ -322,15 +326,19 @@ extension Elements on XMLBuilder {
     writer.add(builder.buildDocument().toXmlString());
     return this;
   }
-  XMLBuilder next() {
+  XMLBuilder next(String val) {
     XmlBuilder builder = XmlBuilder();
-    builder.element('w:next');
+    builder.element('w:next', nest: () {
+      builder.attribute('w:val', val);
+    });
     writer.add(builder.buildDocument().toXmlString());
     return this;
   }
-  XMLBuilder link() {
+  XMLBuilder link(String val) {
     XmlBuilder builder = XmlBuilder();
-    builder.element('w:link');
+    builder.element('w:link', nest: () {
+      builder.attribute('w:val', val);
+    });
     writer.add(builder.buildDocument().toXmlString());
     return this;
   }
@@ -444,15 +452,17 @@ extension Elements on XMLBuilder {
     return this;
   }
   XMLBuilder openTableCellProperty() {
-    XmlBuilder builder = XmlBuilder();
-    builder.element('w:tcPr');
-    writer.add(builder.buildDocument().toXmlString());
+    // List<XmlEventAttribute> listAttr = <XmlEventAttribute>[XmlEventAttribute("val", "okvalue", XmlAttributeType.SINGLE_QUOTE)];
+    List<XmlEventAttribute> listAttr = [];
+    stack.add('w:tcPr');
+    writer.add(XmlStartElementEvent("w:tcPr", listAttr, false).toString());
     return this;
   }
   XMLBuilder openTableCellBorder() {
-    XmlBuilder builder = XmlBuilder();
-    builder.element('w:tcBorders');
-    writer.add(builder.buildDocument().toXmlString());
+    // List<XmlEventAttribute> listAttr = <XmlEventAttribute>[XmlEventAttribute("val", "okvalue", XmlAttributeType.SINGLE_QUOTE)];
+    List<XmlEventAttribute> listAttr = [];
+    stack.add('w:tcBorders');
+    writer.add(XmlStartElementEvent("w:tcBorders", listAttr, false).toString());
     return this;
   }
   XMLBuilder openTableBorder() {
@@ -499,9 +509,12 @@ extension Elements on XMLBuilder {
     writer.add(builder.buildDocument().toXmlString());
     return this;
   }
-  XMLBuilder tableCellWidth() {
+  XMLBuilder tableCellWidth(int width, String type) {
     XmlBuilder builder = XmlBuilder();
-    builder.element('w:tcW');
+    builder.element('w:tcW', nest: () {
+      builder.attribute('w:w', width);
+      builder.attribute('w:type', type);
+    });
     writer.add(builder.buildDocument().toXmlString());
     return this;
   }
@@ -514,21 +527,27 @@ extension Elements on XMLBuilder {
     writer.add(builder.buildDocument().toXmlString());
     return this;
   }
-  XMLBuilder gridSpan() {
+  XMLBuilder gridSpan(int val) {
     XmlBuilder builder = XmlBuilder();
-    builder.element('w:gridSpan');
+    builder.element('w:gridSpan', nest: () {
+      builder.attribute('w:val', val);
+    });
     writer.add(builder.buildDocument().toXmlString());
     return this;
   }
-  XMLBuilder verticalMerge() {
+  XMLBuilder verticalMerge(String val) {
     XmlBuilder builder = XmlBuilder();
-    builder.element('w:vMerge');
+    builder.element('w:vMerge', nest: () {
+      builder.attribute('w:val', val);
+    });
     writer.add(builder.buildDocument().toXmlString());
     return this;
   }
-  XMLBuilder verticalAlign() {
+  XMLBuilder verticalAlign(String val) {
     XmlBuilder builder = XmlBuilder();
-    builder.element('w:vAlign');
+    builder.element('w:vAlign', nest: () {
+      builder.attribute('w:val', val);
+    });
     writer.add(builder.buildDocument().toXmlString());
     return this;
   }
@@ -556,51 +575,91 @@ extension Elements on XMLBuilder {
     writer.add(builder.buildDocument().toXmlString());
     return this;
   }
-  XMLBuilder borderTop() {
+  XMLBuilder borderTop(String borderType, int size, int space, String color) {
     XmlBuilder builder = XmlBuilder();
-    builder.element('w:top');
+    builder.element('w:top', nest: () {
+      builder.attribute('w:val', borderType);
+      builder.attribute('w:sz', size);
+      builder.attribute('w:space', space);
+      builder.attribute('w:color', color);
+    });
     writer.add(builder.buildDocument().toXmlString());
     return this;
   }
-  XMLBuilder borderLeft() {
+  XMLBuilder borderLeft(String borderType, int size, int space, String color) {
     XmlBuilder builder = XmlBuilder();
-    builder.element('w:left');
+      builder.element('w:left', nest: () {
+      builder.attribute('w:val', borderType);
+      builder.attribute('w:sz', size);
+      builder.attribute('w:space', space);
+      builder.attribute('w:color', color);
+    });
     writer.add(builder.buildDocument().toXmlString());
     return this;
   }
-  XMLBuilder borderBottom() {
+  XMLBuilder borderBottom(String borderType, int size, int space, String color) {
     XmlBuilder builder = XmlBuilder();
-    builder.element('w:bottom');
+    builder.element('w:bottom', nest: () {
+      builder.attribute('w:val', borderType);
+      builder.attribute('w:sz', size);
+      builder.attribute('w:space', space);
+      builder.attribute('w:color', color);
+    });
     writer.add(builder.buildDocument().toXmlString());
     return this;
   }
-  XMLBuilder borderRight() {
+  XMLBuilder borderRight(String borderType, int size, int space, String color) {
     XmlBuilder builder = XmlBuilder();
-    builder.element('w:right');
+    builder.element('w:right', nest: () {
+      builder.attribute('w:val', borderType);
+      builder.attribute('w:sz', size);
+      builder.attribute('w:space', space);
+      builder.attribute('w:color', color);
+    });
     writer.add(builder.buildDocument().toXmlString());
     return this;
   }
-  XMLBuilder borderInsideH() {
+  XMLBuilder borderInsideH(String borderType, int size, int space, String color) {
     XmlBuilder builder = XmlBuilder();
-    builder.element('w:insideH');
+    builder.element('w:insideH', nest: () {
+      builder.attribute('w:val', borderType);
+      builder.attribute('w:sz', size);
+      builder.attribute('w:space', space);
+      builder.attribute('w:color', color);
+    });
     writer.add(builder.buildDocument().toXmlString());
     return this;
   }
-  XMLBuilder borderInsideV() {
+  XMLBuilder borderInsideV(String borderType, int size, int space, String color) {
     XmlBuilder builder = XmlBuilder();
-    builder.element('w:insideV');
+    builder.element('w:insideV', nest: () {
+      builder.attribute('w:val', borderType);
+      builder.attribute('w:sz', size);
+      builder.attribute('w:space', space);
+      builder.attribute('w:color', color);
+    });
     writer.add(builder.buildDocument().toXmlString());
     return this;
   }
-  XMLBuilder borderTl2br() {
+  XMLBuilder borderTl2br(String borderType, int size, int space, String color) {
     XmlBuilder builder = XmlBuilder();
-    builder.element('w:tl2br');
+    builder.element('w:tl2br', nest: () {
+      builder.attribute('w:val', borderType);
+      builder.attribute('w:sz', size);
+      builder.attribute('w:space', space);
+      builder.attribute('w:color', color);
+    });
     writer.add(builder.buildDocument().toXmlString());
     return this;
   }
-  XMLBuilder borderTr2bl() {
+  XMLBuilder borderTr2bl(String borderType, int size, int space, String color) {
     XmlBuilder builder = XmlBuilder();
-    builder.element('w:tr2bl');
+    builder.element('w:tr2bl', nest: () {
+      builder.attribute('w:val', borderType);
+      builder.attribute('w:sz', size);
+      builder.attribute('w:space', space);
+      builder.attribute('w:color', color);
+    });
     writer.add(builder.buildDocument().toXmlString());
     return this;
   }
@@ -816,6 +875,16 @@ extension Elements on XMLBuilder {
     XmlBuilder builder = XmlBuilder();
     builder.element('w:br', nest: () {
       builder.attribute('w:type', type);
+    });
+    writer.add(builder.buildDocument().toXmlString());
+    return this;
+  }
+  XMLBuilder shd(String val, String color, String fill) {
+    XmlBuilder builder = XmlBuilder();
+    builder.element('w:shd', nest: () {
+      builder.attribute('w:val', val);
+      builder.attribute('w:color', color);
+      builder.attribute('w:fill', fill);
     });
     writer.add(builder.buildDocument().toXmlString());
     return this;

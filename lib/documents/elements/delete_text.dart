@@ -12,7 +12,7 @@ class DeleteText implements BuildXML{
     return XMLBuilder().deleteText(text, preserveSpace).build();
   }
 }
-void main() {
-  final builder = DeleteText("Hello");
-  print(builder.build());
-}
+// void main() {
+//   final builder = DeleteText("Hello");
+//   print(builder.build());
+// }

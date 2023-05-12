@@ -2,14 +2,14 @@ import 'package:xml/xml.dart';
 
 import '../../xml_builder/mod.dart';
 import '../build_xml.dart';
-class Highlight implements BuildXML{
+class BasedOn implements BuildXML{
   final String val;
 
-  Highlight(this.val);
+  BasedOn(this.val);
 
   @override
   String build() {
-    return XMLBuilder().highlight(val).build();
+    return XMLBuilder().basedOn(val).build();
   }
 }
 // void main() {

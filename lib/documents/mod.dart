@@ -1,10 +1,10 @@
 import 'dart:typed_data';
 import 'package:docx_dart/documents/rels.dart';
+import 'package:docx_dart/documents/styles.dart';
 import 'package:tuple/tuple.dart';
 
 import 'content_types.dart';
 import 'document_rels.dart';
-import 'elements/style.dart';
 
 class Docx {
   ContentTypes contentTypes;
@@ -59,7 +59,7 @@ class Docx {
     final contentTypes = ContentTypes().setDefault();
     final rels = Rels().setDefault();
     final docProps = DocProps(CorePropsConfig());
-    final styles = Styles();
+    final styles = Styles.defaultValues();
     final document = Document();
     final documentRels = DocumentRels();
     final settings = Settings();

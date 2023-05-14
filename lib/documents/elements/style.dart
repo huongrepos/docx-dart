@@ -1,7 +1,8 @@
 import '../../types/mod.dart';
 import '../build_xml.dart';
+import '../../xml_builder/mod.dart';
 import 'mod.dart';
-class Style implements BuildXML{
+class Style implements BuildXML {
   late String styleId;
   late Name name;
   late StyleType styleType;
@@ -9,9 +10,9 @@ class Style implements BuildXML{
   late ParagraphProperty paragraphProperty;
   late TableProperty tableProperty;
   late TableCellProperty tableCellProperty;
-  late BasedOn basedOn;
-  late Next next;
-  late Link link;
+  late BasedOn? basedOn;
+  late Next? next;
+  late Link? link;
 
   Style({
     required this.styleId,
@@ -21,235 +22,91 @@ class Style implements BuildXML{
     required this.paragraphProperty,
     required this.tableProperty,
     required this.tableCellProperty,
-    required this.basedOn,
-    required this.next,
-    required this.link,
+     this.basedOn,
+     this.next,
+     this.link
   });
 
-  Style newStyle(String styleId, StyleType styleType){
-        return Style(
-        styleId: styleId,
-        styleType: styleType,
-        name: Name(""),
-        runProperty: RunProperty(),
-        paragraphProperty: ParagraphProperty.newParagraphProperty(),
-        tableProperty: TableProperty.defaultSettings(),
-        tableCellProperty: TableCellProperty(),
-        basedOn: basedOn,
-        next: next,
-        link: link,
-        );
-  }
+  factory Style.newStyle(String styleId, StyleType styleType)=>Style(
+    styleId: styleId,
+    styleType: styleType,
+    name: Name(""),
+    runProperty: RunProperty(),
+    paragraphProperty: ParagraphProperty.newParagraphProperty(),
+    tableProperty: TableProperty.defaultSettings(),
+    tableCellProperty: TableCellProperty(),
+
+  );
 
 
   Style withName(String name) {
-    return Style(
-      styleId: styleId,
-      styleType: styleType,
-      name: Name(name),
-      runProperty: runProperty,
-      paragraphProperty: paragraphProperty,
-      tableProperty: tableProperty,
-      tableCellProperty: tableCellProperty,
-      basedOn: basedOn,
-      next: next,
-      link: link,
-    );
+    this.name = Name(name);
+    return this;
   }
 
   Style withBasedOn(String base) {
-    return Style(
-      styleId: styleId,
-      styleType: styleType,
-      name: name,
-      runProperty: runProperty,
-      paragraphProperty: paragraphProperty,
-      tableProperty: tableProperty,
-      tableCellProperty: tableCellProperty,
-      basedOn: BasedOn(base),
-      next: next,
-      link: link,
-    );
+    basedOn = BasedOn(base);
+    return this;
   }
 
   Style withNext(String nextId) {
-    return Style(
-      styleId: styleId,
-      styleType: styleType,
-      name: name,
-      runProperty: runProperty,
-      paragraphProperty: paragraphProperty,
-      tableProperty: tableProperty,
-      tableCellProperty: tableCellProperty,
-      basedOn: basedOn,
-      next: Next(nextId),
-      link: link,
-    );
+    next = Next(nextId);
+    return this;
   }
 
   Style withLink(String link) {
-    return Style(
-      styleId: styleId,
-      styleType: styleType,
-      name: name,
-      runProperty: runProperty,
-      paragraphProperty: paragraphProperty,
-      tableProperty: tableProperty,
-      tableCellProperty: tableCellProperty,
-      basedOn: basedOn,
-      next: next,
-      link: Link(link),
-    );
+    this.link = Link(link);
+    return this;
   }
 
   Style withSize(int size) {
-    return Style(
-      styleId: styleId,
-      styleType: styleType,
-      name: name,
-      runProperty: runProperty.withSize(size),
-      paragraphProperty: paragraphProperty,
-      tableProperty: tableProperty,
-      tableCellProperty: tableCellProperty,
-      basedOn: basedOn,
-      next: next,
-      link: link,
-    );
+    runProperty = runProperty.withSize(size);
+    return this;
   }
 
   Style withColor(String color) {
-    return Style(
-      styleId: styleId,
-      styleType: styleType,
-      name: name,
-      runProperty: runProperty.withColor(color),
-      paragraphProperty: paragraphProperty,
-      tableProperty: tableProperty,
-      tableCellProperty: tableCellProperty,
-      basedOn: basedOn,
-      next: next,
-      link: link,
-    );
+    runProperty = runProperty.withColor(color);
+    return this;
   }
 
   Style withHighlight(String color) {
-    return Style(
-      styleId: styleId,
-      styleType: styleType,
-      name: name,
-      runProperty: runProperty.withHighlight(color),
-      paragraphProperty: paragraphProperty,
-      tableProperty: tableProperty,
-      tableCellProperty: tableCellProperty,
-      basedOn: basedOn,
-      next: next,
-      link: link,
-    );
+    runProperty = runProperty.withHighlight(color);
+    return this;
   }
 
   Style withBold() {
-    return Style(
-      styleId: styleId,
-      styleType: styleType,
-      name: name,
-      runProperty: runProperty.makeBold(),
-      paragraphProperty: paragraphProperty,
-      tableProperty: tableProperty,
-      tableCellProperty: tableCellProperty,
-      basedOn: basedOn,
-      next: next,
-      link: link,
-    );
+    runProperty = runProperty.makeBold();
+    return this;
   }
 
   Style withItalic() {
-    return Style(
-      styleId: styleId,
-      styleType: styleType,
-      name: name,
-      runProperty: runProperty.makeItalic(),
-      paragraphProperty: paragraphProperty,
-      tableProperty: tableProperty,
-      tableCellProperty: tableCellProperty,
-      basedOn: basedOn,
-      next: next,
-      link: link,
-    );
+    runProperty = runProperty.makeItalic();
+    return this;
   }
 
   Style withUnderline(String lineType) {
-    return Style(
-      styleId: styleId,
-      styleType: styleType,
-      name: name,
-      runProperty: runProperty.withUnderline(lineType),
-      paragraphProperty: paragraphProperty,
-      tableProperty: tableProperty,
-      tableCellProperty: tableCellProperty,
-      basedOn: basedOn,
-      next: next,
-      link: link,
-    );
+    runProperty = runProperty.withUnderline(lineType);
+    return this;
   }
 
   Style withVanish() {
-    return Style(
-      styleId: styleId,
-      styleType: styleType,
-      name: name,
-      runProperty: runProperty.makeVanish(),
-      paragraphProperty: paragraphProperty,
-      tableProperty: tableProperty,
-      tableCellProperty: tableCellProperty,
-      basedOn: basedOn,
-      next: next,
-      link: link,
-    );
+    runProperty = runProperty.makeVanish();
+    return this;
   }
 
   Style withTextBorder(TextBorder border) {
-    return Style(
-      styleId: styleId,
-      styleType: styleType,
-      name: name,
-      runProperty: runProperty.withTextBorder(border),
-      paragraphProperty: paragraphProperty,
-      tableProperty: tableProperty,
-      tableCellProperty: tableCellProperty,
-      basedOn: basedOn,
-      next: next,
-      link: link,
-    );
+    runProperty = runProperty.withTextBorder(border);
+    return this;
   }
 
   Style withFonts(RunFonts fonts) {
-    return Style(
-      styleId: styleId,
-      styleType: styleType,
-      name: name,
-      runProperty: runProperty.withFonts(fonts),
-      paragraphProperty: paragraphProperty,
-      tableProperty: tableProperty,
-      tableCellProperty: tableCellProperty,
-      basedOn: basedOn,
-      next: next,
-      link: link,
-    );
+    runProperty = runProperty.withFonts(fonts);
+    return this;
   }
 
   Style withAlignment(AlignmentType alignmentType) {
-    return Style(
-      styleId: styleId,
-      styleType: styleType,
-      name: name,
-      runProperty: runProperty,
-      paragraphProperty: paragraphProperty.setAlignment(alignmentType),
-      tableProperty: tableProperty,
-      tableCellProperty: tableCellProperty,
-      basedOn: basedOn,
-      next: next,
-      link: link,
-    );
+    paragraphProperty = paragraphProperty.setAlignment(alignmentType);
+    return this;
   }
 
   Style withIndent({
@@ -258,80 +115,90 @@ class Style implements BuildXML{
     int? end,
     int? startChars,
   }) {
-    return Style(
-      styleId: styleId,
-      styleType: styleType,
-      name: name,
-      runProperty: runProperty,
-      paragraphProperty: paragraphProperty.setIndent(left, specialIndent, end, startChars),
-      tableProperty: tableProperty,
-      tableCellProperty: tableCellProperty,
-      basedOn: basedOn,
-      next: next,
-      link: link,
-    );
+    paragraphProperty = paragraphProperty.setIndent(
+    left, specialIndent, end, startChars);
+    return this;
   }
 
   Style withHangingChars(int chars) {
-    return Style(
-      styleId: styleId,
-      styleType: styleType,
-      name: name,
-      runProperty: runProperty,
-      paragraphProperty: paragraphProperty.setHangingChars(chars),
-      tableProperty: tableProperty,
-      tableCellProperty: tableCellProperty,
-      basedOn: basedOn,
-      next: next,
-      link: link,
-    );
+    paragraphProperty = paragraphProperty.setHangingChars(chars);
+    return this;
   }
 
   Style withFirstLineChars(int chars) {
-    return Style(
-      styleId: styleId,
-      styleType: styleType,
-      name: name,
-      runProperty: runProperty,
-      paragraphProperty: paragraphProperty.setFirstLineChars(chars),
-      tableProperty: tableProperty,
-      tableCellProperty: tableCellProperty,
-      basedOn: basedOn,
-      next: next,
-      link: link,
-    );
+    paragraphProperty = paragraphProperty.setFirstLineChars(chars);
+    return this;
   }
 
   Style withOutlineLvl(int lvl) {
-    return Style(
-      styleId: styleId,
-      styleType: styleType,
-      name: name,
-      runProperty: runProperty,
-      paragraphProperty: paragraphProperty.setOutlineLvl(lvl),
-      tableProperty: tableProperty,
-      tableCellProperty: tableCellProperty,
-      basedOn: basedOn,
-      next: next,
-      link: link,
-    );
+    paragraphProperty = paragraphProperty.setOutlineLvl(lvl);
+    return this;
   }
 
   Style withTableProperty(TableProperty p) {
-    return Style(
-      styleId: styleId,
-      styleType: styleType,
-      name: name,
-      runProperty: runProperty,
-      paragraphProperty: paragraphProperty,
-      tableProperty: p,
-      tableCellProperty: tableCellProperty,
-      basedOn: basedOn,
-      next: next,
-      link: link,
-    );
+    tableProperty = p;
+    return this;
+  }
+  Style withTableIndent(int v){
+    tableProperty = tableProperty.setIndent(v);
+    return this;
+  }
+  Style withTableAlign(TableAlignmentType v){
+    tableProperty = tableProperty.align(v);
+    return this;
+  }
+  Style style(String s){
+    tableProperty = tableProperty.setStyle(s);
+    return this;
+  }
+  Style layout(TableLayoutType t){
+    tableProperty = tableProperty.setLayout(t);
+    return this;
+  }
+  Style width(int v, WidthType t){
+    tableProperty = tableProperty.setWidth(v, t);
+    return this;
+  }
+  Style margins(TableCellMargins margins){
+    tableProperty = tableProperty.setMargins(margins);
+    return this;
+  }
+  Style setBorders(TableBorders borders){
+    tableProperty = tableProperty.setBorders(borders);
+    return this;
+  }
+  Style setBorder(TableBorder border){
+    tableProperty = tableProperty.setBorder(border);
+    return this;
+  }
+  Style clearBorder(TableBorderPosition position){
+    tableProperty = tableProperty.clearBorder(position);
+    return this;
+  }
+  Style clearAllBorder(){
+    tableProperty = tableProperty.clearAllBorder();
+    return this;
+  }
+  Style setTableCellProperty(TableCellProperty p){
+    tableCellProperty = p;
+    return this;
   }
 
-  // Style withTableIndent(int v) {
-  //   return Style(
-  //       styleId: styleId
+  @override
+  String build() {
+    XMLBuilder xmlBuilder = XMLBuilder();
+    xmlBuilder.openStyle(styleType.name, styleId)
+        .addChild(name)
+        .addChild(runProperty)
+        .addChild(paragraphProperty);
+    if(styleType == StyleType.table){
+      xmlBuilder.addChild(tableCellProperty);
+      xmlBuilder.addChild(tableProperty);
+    }
+    return xmlBuilder.addOptionalChild(next).addOptionalChild(link).addOptionalChild(basedOn).close().build();
+  }
+}
+// void main() {
+//   final builder = Style.newStyle("Heading", StyleType.paragraph).withName("OK");
+//   print(builder.build());
+// }

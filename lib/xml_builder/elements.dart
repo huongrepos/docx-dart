@@ -140,9 +140,10 @@ extension Elements on XMLBuilder {
     return this;
   }
   XMLBuilder openRunPropertyDefault() {
-    XmlBuilder builder = XmlBuilder();
-    builder.element('w:rPrDefault');
-    writer.add(builder.buildDocument().toXmlString());
+    // List<XmlEventAttribute> listAttr = <XmlEventAttribute>[XmlEventAttribute("val", "okvalue", XmlAttributeType.SINGLE_QUOTE)];
+    List<XmlEventAttribute> listAttr = [];
+    stack.add('w:rPrDefault');
+    writer.add(XmlStartElementEvent("w:rPrDefault", listAttr, false).toString());
     return this;
   }
   XMLBuilder qFormat() {
@@ -152,27 +153,31 @@ extension Elements on XMLBuilder {
     return this;
   }
   XMLBuilder openDocDefaults() {
-    XmlBuilder builder = XmlBuilder();
-    builder.element('w:docDefaults');
-    writer.add(builder.buildDocument().toXmlString());
+    // List<XmlEventAttribute> listAttr = <XmlEventAttribute>[XmlEventAttribute("val", "okvalue", XmlAttributeType.SINGLE_QUOTE)];
+    List<XmlEventAttribute> listAttr = [];
+    stack.add('w:docDefaults');
+    writer.add(XmlStartElementEvent("w:docDefaults", listAttr, false).toString());
     return this;
   }
   XMLBuilder openStructuredTag() {
-    XmlBuilder builder = XmlBuilder();
-    builder.element('w:sdt');
-    writer.add(builder.buildDocument().toXmlString());
+    // List<XmlEventAttribute> listAttr = <XmlEventAttribute>[XmlEventAttribute("val", "okvalue", XmlAttributeType.SINGLE_QUOTE)];
+    List<XmlEventAttribute> listAttr = [];
+    stack.add('w:sdt');
+    writer.add(XmlStartElementEvent("w:sdt", listAttr, false).toString());
     return this;
   }
   XMLBuilder openStructuredTagContent() {
-    XmlBuilder builder = XmlBuilder();
-    builder.element('w:sdtContent');
-    writer.add(builder.buildDocument().toXmlString());
+    // List<XmlEventAttribute> listAttr = <XmlEventAttribute>[XmlEventAttribute("val", "okvalue", XmlAttributeType.SINGLE_QUOTE)];
+    List<XmlEventAttribute> listAttr = [];
+    stack.add('w:sdtContent');
+    writer.add(XmlStartElementEvent("w:sdtContent", listAttr, false).toString());
     return this;
   }
   XMLBuilder openStructuredTagProperty() {
-    XmlBuilder builder = XmlBuilder();
-    builder.element('w:sdtPr');
-    writer.add(builder.buildDocument().toXmlString());
+    // List<XmlEventAttribute> listAttr = <XmlEventAttribute>[XmlEventAttribute("val", "okvalue", XmlAttributeType.SINGLE_QUOTE)];
+    List<XmlEventAttribute> listAttr = [];
+    stack.add('w:sdtPr');
+    writer.add(XmlStartElementEvent("w:sdtPr", listAttr, false).toString());
     return this;
   }
   XMLBuilder alias() {
@@ -314,16 +319,10 @@ extension Elements on XMLBuilder {
     writer.add(builder.buildDocument().toXmlString());
     return this;
   }
-  XMLBuilder openStyle(
-      StyleType styleType,
-      String id,
-      ) {
-    XmlBuilder builder = XmlBuilder();
-    builder.element('w:style', nest: () {
-      builder.attribute('w:type', styleType);
-      builder.attribute('w:styleId', id);
-    });
-    writer.add(builder.buildDocument().toXmlString());
+  XMLBuilder openStyle(String type, String id) {
+    List<XmlEventAttribute> listAttr = <XmlEventAttribute>[XmlEventAttribute("w:type", type, XmlAttributeType.SINGLE_QUOTE),XmlEventAttribute("w:styleId", id, XmlAttributeType.SINGLE_QUOTE)];
+    stack.add('w:style');
+    writer.add(XmlStartElementEvent("w:style", listAttr, false).toString());
     return this;
   }
   XMLBuilder next(String val) {

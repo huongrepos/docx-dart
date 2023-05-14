@@ -1,5 +1,3 @@
-import 'package:xml/xml.dart';
-
 import '../../xml_builder/mod.dart';
 import '../build_xml.dart';
 class Sz implements BuildXML{
